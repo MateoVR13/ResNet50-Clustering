@@ -1,27 +1,27 @@
-# Clustering de Imágenes con ResNet50 y K-Means
+# Image Clustering with ResNet50 and K-Means
 
-Este proyecto implementa un sistema de clustering de imágenes utilizando características extraídas por una red neuronal convolucional pre-entrenada (ResNet50) y el algoritmo de clustering K-Means. El código está diseñado para procesar un conjunto de imágenes, agruparlas en clusters basados en su contenido visual, y guardar las imágenes agrupadas en carpetas separadas.
+This project implements an image clustering system using features extracted by a pre-trained convolutional neural network (ResNet50) and the K-Means clustering algorithm. The code is designed to process a set of images, cluster them based on their visual content, and save the grouped images into separate folders.
 
-## Contenido
+## Table of Contents
 
-1. [Descripción General](#descripción-general)
-2. [Requisitos](#requisitos)
-3. [Estructura del Código](#estructura-del-código)
-4. [Funciones Principales](#funciones-principales)
-5. [Uso](#uso)
-6. [Posibles Mejoras](#posibles-mejoras)
+1. [Overview](#overview)
+2. [Requirements](#requirements)
+3. [Code Structure](#code-structure)
+4. [Main Functions](#main-functions)
+5. [Usage](#usage)
+6. [Possible Improvements](#possible-improvements)
 
-## Descripción General
+## Overview
 
-El script realiza las siguientes tareas principales:
+The script performs the following main tasks:
 
-1. Extrae características de las imágenes utilizando ResNet50.
-2. Aplica clustering K-Means a las características extraídas.
-3. Organiza las imágenes en carpetas basadas en los clusters asignados.
+1. Extracts features from images using ResNet50.
+2. Applies K-Means clustering to the extracted features.
+3. Organizes images into folders based on their assigned clusters.
 
-## Requisitos
+## Requirements
 
-El código requiere las siguientes bibliotecas de Python:
+The code requires the following Python libraries:
 
 - os
 - shutil
@@ -29,72 +29,68 @@ El código requiere las siguientes bibliotecas de Python:
 - PIL (Python Imaging Library)
 - scikit-learn
 - Keras
-- TensorFlow (como backend para Keras)
+- TensorFlow (as the backend for Keras)
 
-Asegúrate de tener estas bibliotecas instaladas antes de ejecutar el script.
+Ensure you have these libraries installed before running the script.
 
-## Estructura del Código
+## Code Structure
 
-El código está organizado en varias funciones principales:
+The code is organized into several main functions:
 
-1. `extract_features`: Extrae características de las imágenes.
-2. `cluster_images`: Aplica K-Means clustering a las características.
-3. `save_clustered_images`: Guarda las imágenes agrupadas en carpetas.
-4. `find_and_cluster_images`: Función principal que orquesta todo el proceso.
+1. `extract_features`: Extracts features from images.
+2. `cluster_images`: Applies K-Means clustering to the features.
+3. `save_clustered_images`: Saves the grouped images into folders.
+4. `find_and_cluster_images`: Main function that orchestrates the entire process.
 
-## Funciones Principales
+## Main Functions
 
 ### `extract_features(folder_path, model, input_shape=(224, 224))`
 
-Esta función recorre un directorio de imágenes y extrae características utilizando un modelo pre-entrenado (ResNet50).
+This function iterates through a directory of images and extracts features using a pre-trained model (ResNet50).
 
-- **Parámetros**:
-  - `folder_path`: Ruta al directorio que contiene las imágenes.
-  - `model`: Modelo de Keras pre-entrenado para la extracción de características.
-  - `input_shape`: Tamaño de entrada requerido por el modelo (por defecto 224x224).
+- **Parameters**:
+  - `folder_path`: Path to the directory containing the images.
+  - `model`: Pre-trained Keras model for feature extraction.
+  - `input_shape`: Input size required by the model (default 224x224).
 
-- **Retorna**:
-  - Un array NumPy con las características extraídas.
-  - Una lista de rutas de archivos correspondientes.
+- **Returns**:
+  - A NumPy array of extracted features.
+  - A list of corresponding file paths.
 
 ### `cluster_images(features, n_clusters=5)`
 
-Aplica el algoritmo K-Means a las características extraídas para agrupar las imágenes.
+Applies the K-Means algorithm to the extracted features to group the images.
 
-- **Parámetros**:
-  - `features`: Array NumPy de características extraídas.
-  - `n_clusters`: Número de clusters a formar (por defecto 5).
+- **Parameters**:
+  - `features`: NumPy array of extracted features.
+  - `n_clusters`: Number of clusters to form (default is 5).
 
-- **Retorna**:
-  - Etiquetas de cluster asignadas a cada imagen.
+- **Returns**:
+  - Cluster labels assigned to each image.
 
 ### `save_clustered_images(labels, file_paths, output_folder)`
 
-Guarda las imágenes en carpetas separadas basadas en sus etiquetas de cluster.
+Saves the images into separate folders based on their cluster labels.
 
-- **Parámetros**:
-  - `labels`: Etiquetas de cluster asignadas a cada imagen.
-  - `file_paths`: Lista de rutas de archivos de las imágenes originales.
-  - `output_folder`: Directorio donde se guardarán las carpetas de clusters.
+- **Parameters**:
+  - `labels`: Cluster labels assigned to each image.
+  - `file_paths`: List of file paths of the original images.
+  - `output_folder`: Directory where the cluster folders will be saved.
 
 ### `find_and_cluster_images(input_folder, output_folder, n_clusters=5)`
 
-Función principal que coordina todo el proceso de clustering de imágenes.
+Main function that coordinates the entire image clustering process.
 
-- **Parámetros**:
-  - `input_folder`: Directorio que contiene las imágenes de entrada.
-  - `output_folder`: Directorio donde se guardarán los resultados.
-  - `n_clusters`: Número de clusters a formar (por defecto 5).
+- **Parameters**:
+  - `input_folder`: Directory containing the input images.
+  - `output_folder`: Directory where the results will be saved.
+  - `n_clusters`: Number of clusters to form (default is 5).
 
-## Uso
+## Usage
 
-Para utilizar este script, simplemente define las rutas de entrada y salida, y llama a la función principal:
+To use this script, simply define the input and output paths, and call the main function:
 
 ```python
-input_folder = '/ruta/a/tus/imagenes/'
-output_folder = '/ruta/para/resultados/'
+input_folder = '/path/to/your/images/'
+output_folder = '/path/for/results/'
 find_and_cluster_images(input_folder, output_folder, n_clusters=7)
-```
----
-
-Este README proporciona una visión general del proyecto de clustering de imágenes. Para más detalles sobre la implementación, consulta los comentarios en el código fuente.
